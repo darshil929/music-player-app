@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  ActivityIndicator,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -29,7 +30,14 @@ function App(): React.JSX.Element {
   useEffect(() => {
     setup()
   }, [])
-  
+
+  if (!isPlayerReady) {
+    return (
+      <SafeAreaView>
+        <ActivityIndicator />
+      </SafeAreaView>
+    )
+  }
 
   return (
     <SafeAreaView>
