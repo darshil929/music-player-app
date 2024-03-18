@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, {useState, useEffect} from "react"
+
 import type {PropsWithChildren} from 'react';
 import {
   ActivityIndicator,
@@ -13,24 +13,26 @@ import {
 } from 'react-native';
 
 import {setupPlayer, addTrack} from "../musicPlayerServices"
+import MusicPlayer from "./screens/MusicLayout";
 
-function App(): React.JSX.Element {
-  const [isPlayerReady, setIsPlayerReady] = useState(false)
 
-  async function setup() {
+function App(): JSX.Element {
+  const [isPlayerReady, setIsPaylerReady] = useState(false)
+
+  async function setup(){
     let isSetup = await setupPlayer()
 
     if (isSetup) {
       await addTrack()
     }
 
-    setIsPlayerReady(isSetup)
+    setIsPaylerReady(isSetup)
   }
 
   useEffect(() => {
     setup()
   }, [])
-
+  
   if (!isPlayerReady) {
     return (
       <SafeAreaView>
@@ -40,12 +42,10 @@ function App(): React.JSX.Element {
   }
 
   return (
-    <SafeAreaView>
-      <StatusBar
-
-      />
-      <Text>test</Text>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <StatusBar barStyle={"light-content"} />
+      <MusicPlayer />
+    </View>
   );
 }
 
